@@ -12,3 +12,7 @@ Commands that work so far:
 !roll AdB - Rolls A-quanity of B-sided dice, displays the rolls and the total.
 !roll AdB-C - As above, subtracts C-modifier from total
 !roll AdB+C - As above, adds C-modifier to total
+
+The code imports the bot's token from "tokenfile.py" which is not included in this repository.  The sole contents
+of "tokenfile.py" is a declaration of BOTTOKEN which stores the bot's token.  I chose to do this so that I could
+place the bot on github without necessarily sharing the token itself.
