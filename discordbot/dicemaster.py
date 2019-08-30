@@ -1,6 +1,6 @@
 import discord
 from random import randint
-from tokenfile import TOKEN
+from tokenfile import BOTTOKEN
 
 def formatForDiscordModded(msg, reqRoll, resultString, modifier):
     splitString = resultString.split(' ')
@@ -84,4 +84,4 @@ async def on_message(message):
         await message.channel.send(message.content)
         await message.channel.send(message.author.name)
 
-client.run(TOKEN)
+client.run(BOTTOKEN)
