@@ -4,7 +4,7 @@ from tokenfile import BOTTOKEN
 
 def formatForDiscordModded(msg, reqRoll, resultString, modifier):
     splitString = resultString.split(' ')
-    newString = msg.author.name + "rolled " + reqRoll + " with a result of:\n["
+    newString = msg.author.name + " rolled " + reqRoll + " with a result of:\n["
     totalRoll = 0
 
     for roll in splitString:
@@ -19,7 +19,7 @@ def formatForDiscordModded(msg, reqRoll, resultString, modifier):
 
 def formatForDiscordNoMod(msg, reqRoll, resultString):
     splitString = resultString.split(' ')
-    newString = msg.author.name + "rolled " + reqRoll + " with a result of:\n["
+    newString = msg.author.name + " rolled " + reqRoll + " with a result of:\n["
     totalRoll = 0
 
     for roll in splitString:
