@@ -7,10 +7,15 @@ participants understand and adhere to its limitations.
 Commands that work so far:
 
 !hello - Responds with Hello
+
 !showmewhatyougot - Displays the raw message data
+
 !goaway - Disconnects the bot
+
 !roll AdB - Rolls A-quanity of B-sided dice, displays the rolls and the total.
+
 !roll AdB-C - As above, subtracts C-modifier from total
+
 !roll AdB+C - As above, adds C-modifier to total
 
 The code imports the bot's token from "tokenfile.py" which is not included in this repository.  The sole contents
