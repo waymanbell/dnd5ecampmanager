@@ -13,11 +13,11 @@ Commands that work so far:
 
 !roll AdB+C - As above, adds C-modifier to total
 
-!roll AdB+C - As above, subtracts C-modifier from total
+!roll AdB-C - As above, subtracts C-modifier from total
 
 !roll AdB+CdE+...+Z - Rolls multiple types of die and adds the Z-modifier to the total.
 
-!roll AdB+CdE+...+Z - Rolls multiple types of die and subtracts the Z-modifier from the total. 
+!roll AdB+CdE+...-Z - Rolls multiple types of die and subtracts the Z-modifier from the total. 
 
 The code imports the bot's token from "tokenfile.py" which is not included in this repository.  The sole contents
 of "tokenfile.py" is a declaration of BOTTOKEN which stores the bot's token.  I chose to do this so that I could
