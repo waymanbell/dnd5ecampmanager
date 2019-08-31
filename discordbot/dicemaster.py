@@ -97,10 +97,13 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     if message.content.startswith('!roll'):
-        await message.channel.send(rollDice(message))
+        try:
+            await message.channel.send(rollDice(message))
+        except:
+            await message.channel.send('Something you sent broke me.')
 
     if message.content.startswith('!goaway'):
-        client.close()
+        await client.close()
 
     if message.content.startswith('!showmewhatyougot'):
         await message.channel.send(message)
