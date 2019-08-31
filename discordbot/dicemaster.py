@@ -55,16 +55,20 @@ def commandToRollDice(msg):
 
     #Apply rollmodifier
     totalrolled += rollmodifier
+    if rollmodifier > 0:
+        rollresults += ' + '
+    if rollmodifier < 0:
+        rollresults += ' - '
 
     #Format return message appropriate to the context of the message
     if rollmodifier != 0:
         if attachedcomment != '': #There exists a modifier and a roll comment
             return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ' because: ' +
-                    str(attachedcomment) + '\nResults: ' + rollresults + ' + ' + str(rollmodifier) +
+                    str(attachedcomment) + '\nResults: ' + rollresults + str(abs(rollmodifier)) +
                     ' = {}'.format(totalrolled))
         else: #There exists a modifier, but no roll comment
             return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ':' +
-                    '\nResults: ' + rollresults + ' + ' + str(rollmodifier) + ' = {}'.format(totalrolled))
+                    '\nResults: ' + rollresults + str(abs(rollmodifier)) + ' = {}'.format(totalrolled))
     else:
         if attachedcomment != '': #There is no modifier, there is a roll comment
             return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ' because: ' +
