@@ -12,7 +12,7 @@ Commands that work so far:
 
 !goaway - Disconnects the bot
 
-!roll AdB - Rolls A-quanity of B-sided dice, displays the rolls and the total.
+!roll AdB - Rolls A-quantity of B-sided dice, displays the rolls and the total.
 
 !roll AdB-C - As above, subtracts C-modifier from total
 
