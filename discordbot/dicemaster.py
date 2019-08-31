@@ -17,11 +17,11 @@ async def checkForBotCommand(message):
 
 
 def commandToRollDice(msg):
-    #TODO handle negative modifiers
     #Initialize variables
-    rollresults = [] #List to hold individual rolls
+    rollresults = '' #String to hold individual rolls
     attachedcomment = '' #Roller supplied reason for the roll request, if any
     rollmodifier = 0 #Value by which to modify total of all rolled dice
+    totalrolled = 0 #Variable to store the grand total of all rolled dice and modifier
     messagecontent = msg.content[6:] #Strip leading '!roll ' from message content
     messagecontent = messagecontent.split('!', 1) #Separate comment from roll request
     messagecontent[0] = str(messagecontent[0]).strip()
@@ -29,25 +29,49 @@ def commandToRollDice(msg):
     if len(messagecontent) == 2: #Check for comment, save if exists
         attachedcomment = str(messagecontent[1])
 
-    if '-' not in str(messagecontent[0]): #Note the todo
-        dicelist = str(messagecontent[0]).split('+') #Separate all requested dice and modifier
-        for dice in dicelist:
-            dice = str(dice).split('d') #Separate quantity of dice from size of die
-            if len(dice) == 1: #If there was no 'd', then this is actually the rollmodifier
-                rollmodifier = int(dice[0])
-            else: #All other members of the dicelist must be dice
-                if str(dice[0]) == '': #Account for assumed 1; ie: '!roll d6' means '!roll 1d6'
-                    rollresults.append(randint(1, int(dice[1])))
-                else:
-                    for dicequantity in range(int(dice[0])):
-                        rollresults.append(randint(1, int(dice[1])))
 
-    totalrolled = rollmodifier
-    for result in rollresults:
-        totalrolled += int(result)
+    dicelist = str(messagecontent[0]).split('+') #Separate all requested dice and modifier
+    for dice in dicelist:
+        dicerolls = []
+        if '-' in str(dice): #Watch for and catch a negative rollmodifier
+            dice = str(dice).split('-')
+            rollmodifier += int(dice[1]) * -1
+            dice = str(dice[0])
+        dice = str(dice).split('d') #Separate quantity of dice from size of die
+        if len(dice) == 1: #If there was no 'd', then this is actually the rollmodifier
+            rollmodifier += int(dice[0])
+        else: #All other members of the dicelist must be dice
+            if str(dice[0]) == '': #Account for assumed 1; ie: '!roll d6' means '!roll 1d6'
+                dice[0] = 1
+            for dicequantity in range(int(dice[0])):
+                roll = randint(1, int(dice[1]))
+                dicerolls.append(roll)
+                totalrolled += roll
+        if len(dicerolls) > 0:
+            if rollresults == '':
+                rollresults += str(dicerolls)
+            else:
+                rollresults += ' + ' + str(dicerolls)
 
-    return (msg.author.name + ' requested ' + str(messagecontent[0]) + ' to be rolled because: ' +
-            str(attachedcomment) + '\nResults: ' + str(rollresults) + '\nTotal: {}'.format(totalrolled))
+    #Apply rollmodifier
+    totalrolled += rollmodifier
+
+    #Format return message appropriate to the context of the message
+    if rollmodifier != 0:
+        if attachedcomment != '': #There exists a modifier and a roll comment
+            return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ' because: ' +
+                    str(attachedcomment) + '\nResults: ' + rollresults + ' + ' + str(rollmodifier) +
+                    ' = {}'.format(totalrolled))
+        else: #There exists a modifier, but no roll comment
+            return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ':' +
+                    '\nResults: ' + rollresults + ' + ' + str(rollmodifier) + ' = {}'.format(totalrolled))
+    else:
+        if attachedcomment != '': #There is no modifier, there is a roll comment
+            return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ' because: ' +
+                    str(attachedcomment) + '\nResults: ' + rollresults + ' = {}'.format(totalrolled))
+        else: #There is neither a modifier nor a roll comment
+            return (msg.author.name + ' rolls ' + str(messagecontent[0]) + ':' +
+                    '\nResults: ' + rollresults + ' = {}'.format(totalrolled))
 
 
 client = discord.Client()
