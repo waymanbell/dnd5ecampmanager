@@ -55,6 +55,8 @@ def commandToRollDice(msg):
 
     #Apply rollmodifier
     totalrolled += rollmodifier
+
+    #Adjust rollresults string based on sign of rollmodifier.  This is just to help make the return string pretty.
     if rollmodifier > 0:
         rollresults += ' + '
     if rollmodifier < 0:
