@@ -9,7 +9,7 @@ async def checkForBotCommand(message):
         await message.channel.send('Hello!')
     if message.content.startswith('!goaway'):
         await client.close()
-    if message.content.startswith('!roll '):
+    if message.content.startswith('!roll ') or message.content.startswith('/roll '):
         try:
             await message.channel.send(commandToRollDice(message))
         except:
